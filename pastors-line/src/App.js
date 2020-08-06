@@ -207,13 +207,13 @@ function App() {
           </Form.Group>
         </Modal.Footer>
       </Modal>
-      <Modal show={showC} onHide={handleClose} dialogClassName="custom-modal">
+      <Modal show={showC} onHide={handleCloseC} dialogClassName="custom-modal">
         <Modal.Header closeButton>
           <Modal.Title>Contact Detail Modal C</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="contacts">
-            <li key={detailContact.id}>{JSON.stringify(detailContact)}</li>
+            <li key={detailContact.id}><p>{JSON.stringify(detailContact)}</p></li>
           </div>
           <div className="buttons">
             <Link to="/all-contacts">
