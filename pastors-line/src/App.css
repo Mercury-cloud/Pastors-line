@@ -1,0 +1,66 @@
+.App {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.main-container {
+  margin: auto;
+}
+
+.btn {
+  border: none;
+  width: 150px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.button-A {
+  background-color: #46139f;
+}
+
+.button-B {
+  background-color: #ff7f50;
+}
+
+.button-C {
+  background-color: #46139f;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-main {
+  position: fixed;
+  background: white;
+  width: 80%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+.custom-modal {
+  width: 700px !important;
+  max-width: none !important;
+}
+
+.contacts a:hover {
+  cursor: pointer !important;
+  color: blue !important;
+}
