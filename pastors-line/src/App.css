@@ -64,3 +64,11 @@
   cursor: pointer !important;
   color: blue !important;
 }
+
+.contacts li p {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 20;
+  -webkit-box-orient: vertical;
+}
