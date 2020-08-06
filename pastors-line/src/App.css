@@ -72,3 +72,7 @@
   -webkit-line-clamp: 20;
   -webkit-box-orient: vertical;
 }
+
+.main-spinner {
+  margin: auto;
+}
