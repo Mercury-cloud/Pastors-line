@@ -98,12 +98,21 @@ function App() {
     showDetailContact(element);
   }
 
-  const handleScrollStop = () => {
+  const handleScrollStopA = () => {
     // const scrollTop = document.getElementsByClassName('contacts')[0].scro;
-    const scrollTop = document.getElementsByClassName('main-scroll')[0].scrollTop;
-    console.log("scroll stop----", scrollTop);
+    // const scrollTop = document.getElementsByClassName('main-scroll')[0].scrollTop;
+    // console.log("scroll stop----", scrollTop);
     setPage(page + 1);
     showAllContacts();
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+    console.log('Fetch more list items!', page);
+  }
+  const handleScrollStopB = () => {
+    // const scrollTop = document.getElementsByClassName('contacts')[0].scro;
+    // const scrollTop = document.getElementsByClassName('main-scroll')[1].scrollTop;
+    // console.log("scroll stop----", scrollTop);
+    setPage(page + 1);
+    showUSContacts();
     if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
     console.log('Fetch more list items!', page);
   }
@@ -140,7 +149,7 @@ function App() {
             </InputGroup>
 
           </div>
-          <Scrollbars style={{ width: '100%', height: 300 }} onScrollStop={handleScrollStop} className='main-scroll'>
+          <Scrollbars style={{ width: '100%', height: 300 }} onScrollStop={handleScrollStopA} className='main-scroll'>
             <div className="contacts">
               <Spinner animation="border" className="main-spinner" style={spinnerStyle} />
               <ul>
@@ -148,7 +157,7 @@ function App() {
 
                   if (checked) {
                     if ((index + 1) % 2 == 0)
-                      return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${(page > 1 ? (page + 1) / 2 : (page - 1)) * 20 + index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
+                      return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${(page - 1) / 2 * 20 + index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
                   }
                   else {
                     return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${(page - 1) / 2 * 20 + index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
@@ -195,18 +204,20 @@ function App() {
             </InputGroup>
 
           </div>
-          <div className="contacts">
-            <Spinner animation="border" className="main-spinner" style={spinnerStyle} />
-            {usContacts.map((element, index) => {
-              if (checked) {
-                if ((index + 1) % 2 == 0)
-                  return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
-              }
-              else {
-                return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
-              }
-            })}
-          </div>
+          <Scrollbars style={{ width: '100%', height: 300 }} onScrollStop={handleScrollStopB} className='main-scroll'>
+            <div className="contacts">
+              <Spinner animation="border" className="main-spinner" style={spinnerStyle} />
+              {usContacts.map((element, index) => {
+                if (checked) {
+                  if ((index + 1) % 2 == 0)
+                    return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${(page - 1) / 2 * 20 + index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
+                }
+                else {
+                  return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${(page - 1) / 2 * 20 + index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
+                }
+              })}
+            </div>
+          </Scrollbars>
           <div className="buttons">
             <Link to="/all-contacts">
               <Button className="button-A" onClick={() => { handleClose(); handleShowA(); }}>All Contacts</Button>
