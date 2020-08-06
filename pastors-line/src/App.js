@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Modal, Form, InputGroup, FormControl, Spinner } from 'react-bootstrap';
 import { Route, BrowserRouter as Router, Link } from "react-router-dom";
+import { Scrollbars } from 'react-custom-scrollbars';
 import axios from 'axios';
 
 import './App.css';
@@ -12,6 +13,7 @@ function App() {
   const [showC, setShowC] = useState(false);
   const [checked, setCheck] = useState(false);
   const [query, setQuery] = useState('');
+  const [page, setPage] = useState(1);
   const [spinnerStyle, setSpinnerStyle] = useState({ display: 'block' });
   const [allContacts, setAllContacts] = useState([]);
   const [usContacts, setUSContacts] = useState([]);
@@ -30,7 +32,6 @@ function App() {
   }
 
   const showAllContacts = () => {
-    const page = 1;
     const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzEiLCJleHAiOjE2MDM3ODM0Mzd9.3ievseHtX0t3roGh7nBuNsiaQeSjfiHWyyx_5GlOLXk';
     setSpinnerStyle({ display: 'block' });
     setAllContacts([]);
@@ -56,7 +57,6 @@ function App() {
     });
   }
   const showUSContacts = () => {
-    const page = 1;
     const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzEiLCJleHAiOjE2MDM3ODM0Mzd9.3ievseHtX0t3roGh7nBuNsiaQeSjfiHWyyx_5GlOLXk';
     setSpinnerStyle({ display: 'block' });
     setUSContacts([]);
@@ -84,10 +84,12 @@ function App() {
   }
 
   const handleShowA = () => {
+    setPage(1);
     setShowA(true);
     showAllContacts();
   };
   const handleShowB = () => {
+    setPage(1);
     setShowB(true);
     showUSContacts();
   }
@@ -96,6 +98,15 @@ function App() {
     showDetailContact(element);
   }
 
+  const handleScrollStop = () => {
+    // const scrollTop = document.getElementsByClassName('contacts')[0].scro;
+    const scrollTop = document.getElementsByClassName('main-scroll')[0].scrollTop;
+    console.log("scroll stop----", scrollTop);
+    setPage(page + 1);
+    showAllContacts();
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+    console.log('Fetch more list items!', page);
+  }
 
   return (
     <div className="App">
@@ -129,20 +140,25 @@ function App() {
             </InputGroup>
 
           </div>
-          <div className="contacts">
-            <Spinner animation="border" className="main-spinner" style={spinnerStyle} />
-            <ul>
-              {allContacts.map((element, index) => {
-                if (checked) {
-                  if ((index + 1) % 2 == 0)
-                    return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
-                }
-                else {
-                  return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
-                }
-              })}
-            </ul>
-          </div>
+          <Scrollbars style={{ width: '100%', height: 300 }} onScrollStop={handleScrollStop} className='main-scroll'>
+            <div className="contacts">
+              <Spinner animation="border" className="main-spinner" style={spinnerStyle} />
+              <ul>
+                {allContacts.map((element, index) => {
+
+                  if (checked) {
+                    if ((index + 1) % 2 == 0)
+                      return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${(page > 1 ? (page + 1) / 2 : (page - 1)) * 20 + index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
+                  }
+                  else {
+                    return (<li key={element.id}><a onClick={() => { handleShowC(element) }}>{`No: ${(page - 1) / 2 * 20 + index + 1}, id: ${element.id}, name: ${element.first_name} ${element.last_name}`}</a></li>)
+                  }
+                })}
+              </ul>
+            </div>
+
+          </Scrollbars>
+
           <div className="buttons">
             <Link to="/all-contacts">
               <Button className="button-A" onClick={() => { handleClose(); handleShowA(); }}>All Contacts</Button>
