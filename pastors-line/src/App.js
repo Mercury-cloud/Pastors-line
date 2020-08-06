@@ -144,7 +144,7 @@ function App() {
                 placeholder="Please write name or phone number"
                 aria-label="nameNumber"
                 aria-describedby="name-number"
-                onChange={(e) => { setQuery(e.target.value); showAllContacts() }}
+                onChange={(e) => { setQuery(e.target.value); setPage(1); showAllContacts() }}
               />
             </InputGroup>
 
@@ -199,7 +199,7 @@ function App() {
                 placeholder="Please write name or phone number"
                 aria-label="nameNumber"
                 aria-describedby="name-number"
-                onChange={(e) => { setQuery(e.target.value); showUSContacts() }}
+                onChange={(e) => { setQuery(e.target.value); setPage(1); showUSContacts() }}
               />
             </InputGroup>
 
