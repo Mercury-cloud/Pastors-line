@@ -84,11 +84,13 @@ function App() {
   }
 
   const handleShowA = () => {
+    setQuery('');
     setPage(1);
     setShowA(true);
     showAllContacts();
   };
   const handleShowB = () => {
+    setQuery('');
     setPage(1);
     setShowB(true);
     showUSContacts();
