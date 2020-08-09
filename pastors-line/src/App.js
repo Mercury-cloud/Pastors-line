@@ -245,12 +245,12 @@ function App() {
             <li key={detailContact.id}><p>{JSON.stringify(detailContact)}</p></li>
           </div>
           <div className="buttons">
-            <Link to="/all-contacts">
+            {/* <Link to="/all-contacts">
               <Button className="button-A" onClick={() => { handleClose(); handleShowA(); }}>All Contacts</Button>
             </Link>
             <Link to="/us-contacts">
               <Button className="button-B" onClick={() => { handleClose(); handleShowB(); }}>US Contacts</Button>
-            </Link>
+            </Link> */}
             <Button className="button-C" onClick={handleCloseC}>Close</Button>
           </div>
         </Modal.Body>
