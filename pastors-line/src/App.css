@@ -76,3 +76,11 @@
 .main-spinner {
   margin: auto;
 }
+
+.buttons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
